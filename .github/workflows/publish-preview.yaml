@@ -6,7 +6,7 @@ on:  # yamllint disable-line rule:truthy
         types: ['edited', 'opened', 'reopened', 'synchronize']
 
 jobs:
-  publish-preview:
-    uses: 'Nostra-Inc/iac-workflow/.github/workflows/publish-preview-reusable.yaml@NOSTRAPROJ-145'
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    publish-preview:
+        uses: 'Nostra-Inc/iac-workflow/.github/workflows/publish-preview-reusable.yaml@NOSTRAPROJ-145'
+        secrets:
+            token: '${{ secrets.GITHUB_TOKEN }}'

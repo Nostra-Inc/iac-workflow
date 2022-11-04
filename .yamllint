@@ -2,16 +2,17 @@
 extends: 'default'
 
 yaml-files:
-  - '*.yaml'
-  - '*.yml'
-  - '.yamllint'
+    - '*.yaml'
+    - '*.yml'
+    - '.yamllint'
 
 ignore: |
-  venv/
+   venv/
 
 rules:
-  quoted-strings:
-    quote-type: 'single'
-    required: true
-  line-length:
-    max: 220
+    quoted-strings:
+        required: true
+    line-length:
+        max: 220
+    indentation:
+        spaces: 4
