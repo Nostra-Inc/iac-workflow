@@ -1,0 +1,8 @@
+name: 'call-publish'
+
+on:
+  push:
+
+jobs:
+  publish:
+    uses: Nostra-Inc/iac-origin/workflows/publish.yaml@NOSTRAPROJ-145

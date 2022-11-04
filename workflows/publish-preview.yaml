@@ -1,0 +1,8 @@
+name: 'call-publish-preview'
+
+on:
+  push:
+
+jobs:
+  publish-preview:
+    uses: Nostra-Inc/iac-origin/workflows/publish-preview.yaml@NOSTRAPROJ-145
