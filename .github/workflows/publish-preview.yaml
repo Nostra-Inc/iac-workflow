@@ -1,8 +1,10 @@
-name: 'call-publish-preview'
+---
+name: 'publish-preview'
 
-on:
-  push:
+on:  # yamllint disable-line rule:truthy
+    pull_request:
+        types: ['edited', 'opened', 'reopened', 'synchronize']
 
 jobs:
   publish-preview:
-    uses: Nostra-Inc/iac-origin/workflows/publish-preview.yaml@NOSTRAPROJ-145
+    uses: 'Nostra-Inc/iac-origin/workflows/publish-preview.yaml@NOSTRAPROJ-145'

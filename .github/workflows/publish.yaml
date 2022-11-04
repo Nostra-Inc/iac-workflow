@@ -1,7 +1,9 @@
-name: 'call-publish'
+---
+name: 'publish'
 
-on:
-  push:
+on:  # yamllint disable-line rule:truthy
+    push:
+        branches: ['main']
 
 jobs:
   publish:
