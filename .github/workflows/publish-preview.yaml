@@ -7,4 +7,4 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   publish-preview:
-    uses: '../../workflows/publish-preview.yaml@NOSTRAPROJ-145'
+    uses: '.github/workflows/shared/publish-preview.yaml@NOSTRAPROJ-145'

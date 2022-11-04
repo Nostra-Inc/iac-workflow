@@ -1,6 +1,9 @@
 
 build:
-	make -C workflows build
+	@python3 -m venv venv
+	@. venv/bin/activate && \
+	pip install yamllint && \
+	(yamllint . && echo "🟢 YAMLLINT PASS") || (echo "🔴 YAMLLINT FAIL" && exit 1)
 
 clean:
-	make -C workflows clean
+	npx rimraf venv
