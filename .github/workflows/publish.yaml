@@ -7,4 +7,4 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   publish:
-    uses: 'Nostra-Inc/poc-iac-consumer/.github/workflows/publish.yaml@NOSTRAPROJ-145'
+    uses: 'Nostra-Inc/poc-iac-consumer/.github/workflows/publish-reusable.yaml@NOSTRAPROJ-145'
