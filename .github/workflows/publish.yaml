@@ -8,3 +8,5 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   publish:
     uses: 'Nostra-Inc/poc-iac-consumer/.github/workflows/publish-reusable.yaml@NOSTRAPROJ-145'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
