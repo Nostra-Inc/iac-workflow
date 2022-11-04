@@ -7,4 +7,4 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   publish:
-    uses: Nostra-Inc/iac-origin/workflows/publish.yaml@NOSTRAPROJ-145
+    uses: '../../workflows/publish-preview.yaml'
