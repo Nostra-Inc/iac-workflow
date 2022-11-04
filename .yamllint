@@ -1,0 +1,17 @@
+---
+extends: 'default'
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+  - '.yamllint'
+
+ignore: |
+  venv/
+
+rules:
+  quoted-strings:
+    quote-type: 'single'
+    required: true
+  line-length:
+    max: 220

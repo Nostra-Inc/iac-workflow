@@ -1,0 +1,12 @@
+---
+name: 'publish'
+
+on:  # yamllint disable-line rule:truthy
+    push:
+        branches: ['main']
+
+jobs:
+  publish:
+    uses: 'Nostra-Inc/iac-workflow/.github/workflows/publish-reusable.yaml@NOSTRAPROJ-145'
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

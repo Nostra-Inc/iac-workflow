@@ -1,0 +1,64 @@
+---
+name: 'publish-preview-reusable'
+
+on:  # yamllint disable-line rule:truthy
+    workflow_call:
+        secrets:
+            token:
+                required: true
+
+
+jobs:
+    publish-preview:
+        runs-on: 'ubuntu-20.04'
+        steps:
+            # https://github.com/actions/checkout
+            - name: 'checkout'
+              uses: 'actions/checkout@v3'
+              with:
+                  fetch-depth: 0
+
+            # https://github.com/WyriHaximus/github-action-get-previous-tag
+            - name: 'get-previous-tag'
+              id: 'latest-tag'
+              uses: 'WyriHaximus/github-action-get-previous-tag@v1.2.2'
+              with:
+                  fallback: 'fallback-token'
+
+            # Enforce start at v1.0.0
+            # https://github.com/mathieudutour/github-tag-action
+            - name: 'first-tag'
+              id: 'first-tag-version'
+              uses: 'mathieudutour/github-tag-action@v6.1'
+              if: "${{ steps.latest-tag.outputs.tag == 'fallback-token' }}"
+              with:
+                  github_token: '${{ secrets.token }}'
+                  custom_tag: '1.0.0'
+                  dry_run: true
+
+            # Calculate the next SemVer
+            # https://github.com/mathieudutour/github-tag-action
+            - name: 'semver-tag'
+              id: 'calculate-tag-version'
+              uses: 'mathieudutour/github-tag-action@v6.1'
+              if: "${{ steps.latest-tag.outputs.tag != 'fallback-token' }}"
+              with:
+                  github_token: '${{ secrets.token }}'
+                  custom_release_rules: 'MAJOR:major,MINOR:minor,PATCH:patch'
+                  dry_run: true
+
+            - name: 'describe'
+              id: 'release-description'
+              run: |
+                  if [ "${{ steps.latest-tag.outputs.tag }}" = "fallback-token" ]; then
+                      echo "DESCRIBE=none -> ${{ steps.first-tag-version.outputs.new_tag }} (forced major)" >> $GITHUB_ENV
+                  else
+                      echo "DESCRIBE=${{ steps.calculate-tag-version.outputs.previous_tag }} -> ${{ steps.calculate-tag-version.outputs.new_tag }} (${{ steps.calculate-tag-version.outputs.release_type }})" >> $GITHUB_ENV
+                  fi
+
+            # https://github.com/thollander/actions-comment-pull-request
+            - name: 'update-comment'
+              uses: 'thollander/actions-comment-pull-request@v1.5.0'
+              with:
+                  message: '🤖 PR merge will publish `${{ env.DESCRIBE }}`.'
+                  comment_includes: '🤖 PR merge will publish'  # upsert predicate
